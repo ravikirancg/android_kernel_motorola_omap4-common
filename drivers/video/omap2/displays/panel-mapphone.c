@@ -3920,6 +3920,10 @@ static int mapphone_panel_power_on(struct omap_dss_device *dssdev)
 	 * state, as the bootloader can change the display's initial state.
 	 * This is needed to ensure ESD check is done correctly.
 	 */
+#ifdef CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT
+	static bool first_boot = true;
+#endif
+	 
 	if (first_boot) {
 		if (panel_data->use_esd_check) {
 			if (dsi_vc_dcs_read(dssdev, dsi_vc_cmd,
